@@ -1,0 +1,35 @@
+class Node:
+    def __init__(self):
+        self.children = {} # stored characters, at max 26
+        self.isEnd = False
+
+class PrefixTree:
+
+    def __init__(self):
+        self.root = Node()
+
+    def insert(self, word: str) -> None:
+        curr = self.root
+        for c in word:
+            if c not in curr.children:
+                curr.children[c] = Node()
+                # print(curr.children)
+            curr = curr.children[c]
+        curr.isEnd = True
+
+    def search(self, word: str) -> bool:
+        curr = self.root
+        for c in word:
+            
+            if c not in curr.children:
+                return False
+            curr = curr.children[c]
+        return curr.isEnd
+
+    def startsWith(self, prefix: str) -> bool:
+        curr = self.root
+        for c in prefix:
+            if c not in curr.children:
+                return False
+            curr = curr.children[c]
+        return True
